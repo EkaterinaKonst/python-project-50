@@ -2,7 +2,7 @@ install:
 	poetry install
 
 run-gendiff:
-	poetry run gendiff -h
+	poetry run gendiff
 
 test:
 	poetry run pytest
