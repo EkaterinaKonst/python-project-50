@@ -1,16 +1,17 @@
 name: CI check
 
-on: push
+on:
+  - push
+  - pull_request
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # we want to test our package on several versions of Python
+        python-version: [3.8, 3.9]
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: [3.8, 3.9]
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -28,7 +29,7 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
         env:
-          CC_TEST_REPORTER_ID: 4df006e5f06e979de4a45d5797ca754feb89ba016b8699307fe91f676762d94d
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:
           coverageCommand: make test-coverage
           debug: true
