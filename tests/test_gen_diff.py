@@ -4,17 +4,6 @@ import pytest
 from tests import get_path
 
 
-@pytest.mark.parametrize(
-    "test_input1,test_input2, expected",
-    [
-        pytest.param(
-            'file1.json',
-            'file2.json',
-            'correct_result.txt',
-            id="flat_json_file"
-        ),
-    ],
-)
 def test_generare_diff(test_input1, test_input2, expected):
     expected_path = get_path(expected)
     with open(expected_path, 'r') as file:
