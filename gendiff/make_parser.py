@@ -1,7 +1,5 @@
 import argparse
-import json
-#import yaml
-from os.path import splitext
+
 
 def parser():
     parser = argparse.ArgumentParser(
