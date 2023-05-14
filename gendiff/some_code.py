@@ -1,7 +1,8 @@
 import json
 
 
-def build_diff(parced_data1: dict, parced_data2: dict):# noqa: C901
+# flake8: noqa: C901
+def build_diff(parced_data1: dict, parced_data2: dict):
     diff = list()
     sorted_keys = sorted(
         list(set(parced_data1.keys()) | set(parced_data2.keys()))
