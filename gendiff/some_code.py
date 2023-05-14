@@ -45,8 +45,8 @@ def build_diff(parced_data1: dict, parced_data2: dict):
 
 def prepare_data(path_file: str):
     with open(path_file) as f:
-            data = json.load(f)
-            return data
+        data = json.load(f)
+        return data
 
 
 def generate_diff(path_file1: str, path_file2: str):
@@ -67,4 +67,3 @@ def generate_diff(path_file1: str, path_file2: str):
             diff_to_str += f' + {i["key"]}: {i["new"]}\n'
     diff_to_str += '}'
     return diff_to_str
-

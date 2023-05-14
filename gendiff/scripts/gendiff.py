@@ -1,5 +1,5 @@
 from gendiff.make_parser import parser
-from gendiff.some_code import generate_diff, build_diff, prepare_data
+from gendiff.some_code import generate_diff
 
 
 def main():
