@@ -1,4 +1,6 @@
 import json
+import yaml
+from os.path import splitext
 
 
 # flake8: noqa: C901
@@ -45,9 +47,15 @@ def build_diff(parced_data1: dict, parced_data2: dict):
 
 
 def prepare_data(path_file: str):
-    with open(path_file) as f:
-        data = json.load(f)
-        return data
+    original_format = splitext(path_file)[1][1:]
+    if original_format == 'json':
+        with open(path_file) as f:
+            json_data = json.load(f)
+            return json_data
+    elif original_format == 'yaml' or original_format == 'yml':
+        with open(path_file) as fh:
+            yml_data = yaml.load(fh, Loader=yaml.FullLoader)
+            return yml_data
 
 
 def generate_diff(path_file1: str, path_file2: str):
