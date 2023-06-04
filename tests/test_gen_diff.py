@@ -8,7 +8,7 @@ result = 'tests/fixtures/correct_result.txt'
 read_result_json = open(result, 'r')
 
 fl1_yaml = 'tests/fixtures/file1.yml'
-fl2_yaml = 'tests/fixtures/file2.yaml'
+fl2_yaml = 'tests/fixtures/file2.yml'
 read_result_yml = open('tests/fixtures/correct_result.txt', 'r')
 
 
