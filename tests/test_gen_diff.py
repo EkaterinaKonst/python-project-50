@@ -1,24 +1,20 @@
 from gendiff.some_code import generate_diff
 import pytest
 
-from tests import get_path
+
+fl1 = 'tests/fixtures/file1.json'
+fl2 = 'tests/fixtures/file2.json'
+result = 'tests/fixtures/correct_result.txt'
+read_result_json = open(result, 'r')
+
+fl1_yaml = 'tests/fixtures/file1.yml'
+fl2_yaml = 'tests/fixtures/file2.yaml'
+read_result_yml = open('tests/fixtures/correct_result.txt', 'r')
 
 
-@pytest.mark.parametrize(
-    "test_input1,test_input2, expected",
-    [
-        pytest.param(
-            'file1.json',
-            'file2.json',
-            'correct_result.txt',
-            id="flat_json_file"
-        ),
-    ],
-)
-def test_generate_diff(test_input1, test_input2, expected):
-    expected_path = get_path(expected)
-    with open(expected_path, 'r') as file:
-        result_data = file.read()
-        test_path1 = get_path(test_input1)
-        test_path2 = get_path(test_input2)
-        assert generate_diff(test_path1, test_path2) == result_data
+def test_gendiff_flat_json():
+    assert generate_diff(fl1, fl2) == read_result_json.read()
+
+
+def test_gendiff_flat_yaml():
+    assert generate_diff(fl1_yaml, fl2_yaml) == read_result_yml.read()
