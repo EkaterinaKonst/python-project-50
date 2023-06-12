@@ -1,9 +1,6 @@
 install:
 	poetry install
 
-run-gendiff:
-	poetry run gendiff
-
 test:
 	poetry run pytest
 
@@ -15,8 +12,6 @@ lint:
 
 selfcheck:
 	poetry check
-
-check: selfcheck test lint
 
 build:
 	poetry build
