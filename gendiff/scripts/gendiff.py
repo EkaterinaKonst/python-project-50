@@ -4,7 +4,7 @@ from gendiff.some_code import stylish
 
 def main():
     args = parser_func()
-    print(stylish(args.first_file, args.second_file, formatter='stylish'))
+    return stylish(args.first_file, args.second_file, formatter='stylish')
 
 
 if __name__ == '__main__':
