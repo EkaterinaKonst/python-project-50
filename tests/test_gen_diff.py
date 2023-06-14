@@ -1,4 +1,4 @@
-from gendiff.some_code import generate_diff
+from gendiff.some_code import stylish
 import pytest
 import os
 
@@ -55,4 +55,4 @@ def test_generare_diff(test_input1, test_input2, formater, expected):
         result_data = file.read()
         test_path1 = get_path(test_input1)
         test_path2 = get_path(test_input2)
-        assert generate_diff(test_path1, test_path2, formater) == result_data
+        assert stylish(test_path1, test_path2, formater) == result_data
