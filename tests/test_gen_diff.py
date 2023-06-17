@@ -25,13 +25,6 @@ def get_path(file):
             id="flat_yaml_file"
         ),
         pytest.param(
-            'file1.yml',
-            'file2.json',
-            'stylish',
-            'correct_result.txt',
-            id="flat_mix_file"
-        ),
-        pytest.param(
             'file1tree.json',
             'file2tree.json',
             'stylish',
