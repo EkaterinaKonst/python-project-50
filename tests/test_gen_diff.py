@@ -10,8 +10,8 @@ fl1_yaml = 'tests/fixtures/file1.yml'
 fl2_yaml = 'tests/fixtures/file2.yml'
 yaml_result = open('tests/fixtures/correct_result.txt', 'r')
 
-stylish_nested1 = 'tests/fixtures/file1nested.json'
-stylish_nested2 = 'tests/fixtures/file2nested.json'
+stylish_nested1 = 'tests/fixtures/file1tree.json'
+stylish_nested2 = 'tests/fixtures/file2tree.json'
 stylish_nested_result = open('tests/fixtures/correct_result_tree.txt', 'r')
 
 
