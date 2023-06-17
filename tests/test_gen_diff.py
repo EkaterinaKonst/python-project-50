@@ -1,4 +1,4 @@
-from gendiff.some_code import generate_diff
+from gendiff.some_code import stylish
 
 
 fl1 = 'tests/fixtures/file1.json'
@@ -20,15 +20,16 @@ stylish_nested_result_yml = open('tests/fixtures/correct_result_tree.txt', 'r')
 
 
 def test_gendiff_flat_json():
-    assert generate_diff(fl1, fl2) == read_result1.read()
+    assert stylish(fl1, fl2) == read_result1.read()
 
 
 def test_gendiff_flat_yml():
-    assert generate_diff(fl1_yaml, fl2_yaml) == yaml_result.read()
+    assert stylish(fl1_yaml, fl2_yaml) == yaml_result.read()
 
 
 def test_stylish_nested_json():
-    assert generate_diff(stylish_nested1, stylish_nested2) == stylish_nested_result.read()
+    assert stylishf(stylish_nested1, stylish_nested2) == stylish_nested_result.read()
+
 
 def test_stylish_nested_yml():
-    assert generate_diff(stylish_nested1_yml, stylish_nested2_yml) == stylish_nested_result_yml.read()
+    assert stylish(stylish_nested1_yml, stylish_nested2_yml) == stylish_nested_result_yml.read()
