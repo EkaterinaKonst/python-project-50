@@ -107,7 +107,7 @@ def basic_indent(depth):
     return ' ' * size
 
 
-def stylish(path_file1: str, path_file2: str, formatter='stylish'):
+def stylish(path_file1: str, path_file2: str):
     data1 = prepare_data(path_file1)
     data2 = prepare_data(path_file2)
     tmp_diff = build_diff(data1, data2)
