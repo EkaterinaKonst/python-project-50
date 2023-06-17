@@ -4,79 +4,61 @@ from os.path import splitext
 import itertools
 
 
-# flake8: noqa: C901
-def build_diff(parced_data1: dict, parced_data2: dict):
+def file_opener(file1, file2):
+    def inner_(file):
+        if file.endswith('.json'):
+            file = json.load(open(file))
+        elif file.endswith('.yaml') or file.endswith('.yml'):
+            file = yaml.safe_load(open(file, 'r'))
+        else:
+            raise ValueError('Invalid format')
+        return file
+    file1 = inner_(file1)
+    file2 = inner_(file2)
+    return file1, file2
+
+
+def diff_seeker(file1, file2):
+    """
+    analyses the two files by their sorted keys and adds information about
+    type of change: add, remove. If both values are dicts, it recursively
+    creates a children list.
+    """
     diff = list()
-    sorted_keys = sorted(
-        list(set(parced_data1.keys()) | set(parced_data2.keys()))
-    )
+    sorted_keys = sorted(list(set(file1.keys()) | set(file2.keys())))
     for key in sorted_keys:
-        if key not in parced_data1:
-            diff.append({
-                'key': key,
-                'operation': 'add',
-                'new': parced_data2[key]
-            })
-        elif key not in parced_data2:
-            diff.append({
-                'key': key,
-                'operation': 'removed',
-                'old': parced_data1[key]
-            })
-        elif isinstance(parced_data1[key], dict) and isinstance(
-                parced_data2[key], dict):
-            child = build_diff(parced_data1[key], parced_data2[key])
-            diff.append({
-                'key': key,
-                'operation': 'nested',
-                'value': child
-            })
-        elif parced_data1[key] == parced_data2[key]:
-            diff.append({
-                'key': key,
-                'operation': 'same',
-                'value': parced_data1[key]
-            })
-        elif parced_data1[key] != parced_data2[key]:
-            diff.append({
-                'key': key,
-                'operation': 'changed',
-                'old': parced_data1[key],
-                'new': parced_data2[key]
-            })
+        if key not in file1:
+            diff.append(
+                {'key': key,
+                 'operation': 'add',
+                 'new': file2[key]
+                 })
+        elif key not in file2:
+            diff.append(
+                {'key': key,
+                 'operation': 'remove',
+                 'removed': file1[key]})
+        elif isinstance(file1[key], dict) and isinstance(file2[key], dict):
+            children = diff_seeker(file1[key], file2[key])
+            diff.append(
+                {'key': key,
+                 'operation': 'nest',
+                 'value': children})
+        elif key in file1 and key in file2 and file1[key] != file2[key]:
+            diff.append(
+                {'key': key,
+                 'operation': 'remove',
+                 'removed': file1[key]})
+            diff.append(
+                {'key': key,
+                 'operation': 'add',
+                 'new': file2[key]})
+        elif key in file1 and key in file2 and file1[key] == file2[key]:
+            diff.append(
+                {'key': key,
+                 'operation': 'same',
+                 'value': file1[key]})
     return diff
-
-
-def prepare_data(path_file: str):
-    original_format = splitext(path_file)[1][1:]
-    if original_format == 'json':
-        with open(path_file) as f:
-            json_data = json.load(f)
-            return json_data
-    elif original_format == 'yaml' or original_format == 'yml':
-        with open(path_file) as fh:
-            yml_data = yaml.load(fh, Loader=yaml.FullLoader)
-            return yml_data
-
-
-def generate_diff(path_file1: str, path_file2: str):
-    data1 = prepare_data(path_file1)
-    data2 = prepare_data(path_file2)
-    tmp_diff = build_diff(data1, data2)
-    diff_to_str = ''
-    diff_to_str += '{\n'
-    for i in tmp_diff:
-        if i['operation'] == 'removed':
-            diff_to_str += f' - {i["key"]}: {i["old"]}\n'
-        elif i['operation'] == 'same':
-            diff_to_str += f'   {i["key"]}: {i["value"]}\n'
-        elif i['operation'] == 'changed':
-            diff_to_str += f' - {i["key"]}: {i["old"]}\n'
-            diff_to_str += f' + {i["key"]}: {i["new"]}\n'
-        elif i['operation'] == 'add':
-            diff_to_str += f' + {i["key"]}: {i["new"]}\n'
-    diff_to_str += '}'
-    return diff_to_str
 
 
 def stringify(val, depth):
@@ -107,10 +89,8 @@ def basic_indent(depth):
     return ' ' * size
 
 
-def stylish(path_file1: str, path_file2: str, formatter='stylish'):
-    data1 = prepare_data(path_file1)
-    data2 = prepare_data(path_file2)
-    tmp_diff = build_diff(data1, data2)
+def stylish(dict1, dict2):
+    diff_list = diff_seeker(dict1, dict2)
 
     def iter_(lst, depth=0):
         lines = []
@@ -135,4 +115,9 @@ def stylish(path_file1: str, path_file2: str, formatter='stylish'):
         current_indent = ' ' * depth
         result = itertools.chain('{', lines, [current_indent + '}'])
         return '\n'.join(result)
-    return iter_(tmp_diff, 1)
+    return iter_(diff_list, 1)
+
+def generate_diff(file1, file2, formatter='stylish'):
+    file1, file2 = file_opener(file1, file2)
+    if formatter == 'stylish':
+        return stylish(file1, file2)
