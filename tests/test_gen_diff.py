@@ -1,4 +1,4 @@
-from gendiff.generate_diff import generate_diff
+from gendiff.some_code import stylish
 
 
 fl1 = 'tests/fixtures/file1.json'
