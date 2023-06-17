@@ -17,7 +17,7 @@ def file_opener(file1, file2):
     return file1, file2
 
 
-#noqa: с901
+# noqa: C901
 def diff_seeker(file1, file2):
     diff = list()
     sorted_keys = sorted(list(set(file1.keys()) | set(file2.keys())))
@@ -56,6 +56,7 @@ def diff_seeker(file1, file2):
     return diff
 
 
+# noqa: E501
 def stringify(val, depth):
     if isinstance(val, bool):
         return 'true' if val else 'false'
@@ -80,7 +81,7 @@ def basic_indent(depth):
     return ' ' * size
 
 
-#noqa: с901
+# noqa: C901
 def stylish(dict1, dict2):
     diff_list = diff_seeker(dict1, dict2)
 
