@@ -1,6 +1,5 @@
 import json
 import yaml
-from os.path import splitext
 import itertools
 
 
@@ -18,12 +17,8 @@ def file_opener(file1, file2):
     return file1, file2
 
 
+#noqa: с901
 def diff_seeker(file1, file2):
-    """
-    analyses the two files by their sorted keys and adds information about
-    type of change: add, remove. If both values are dicts, it recursively
-    creates a children list.
-    """
     diff = list()
     sorted_keys = sorted(list(set(file1.keys()) | set(file2.keys())))
     for key in sorted_keys:
@@ -62,10 +57,6 @@ def diff_seeker(file1, file2):
 
 
 def stringify(val, depth):
-    """
-    transforms values to string and translates bool & None
-    values to correct JavaScript names.
-    """
     if isinstance(val, bool):
         return 'true' if val else 'false'
     elif val is None:
@@ -89,6 +80,7 @@ def basic_indent(depth):
     return ' ' * size
 
 
+#noqa: с901
 def stylish(dict1, dict2):
     diff_list = diff_seeker(dict1, dict2)
 
@@ -116,6 +108,7 @@ def stylish(dict1, dict2):
         result = itertools.chain('{', lines, [current_indent + '}'])
         return '\n'.join(result)
     return iter_(diff_list, 1)
+
 
 def generate_diff(file1, file2, formatter='stylish'):
     file1, file2 = file_opener(file1, file2)
