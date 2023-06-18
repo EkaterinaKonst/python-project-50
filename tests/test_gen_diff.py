@@ -1,27 +1,49 @@
-from gendiff.some_code import *
+# -*- coding: utf-8 -*-
+
+from gendiff.some_code import generate_diff
+import pytest
+import os
 
 
-fl1 = 'tests/fixtures/file1.json'
-fl2 = 'tests/fixtures/file2.json'
-result1 = 'tests/fixtures/correct_result.txt'
-read_result1 = open(result1, 'r')
-
-fl1_yaml = 'tests/fixtures/file1.yml'
-fl2_yaml = 'tests/fixtures/file2.yml'
-yaml_result = open('tests/fixtures/correct_result.txt', 'r')
-
-stylish_nested1 = 'tests/fixtures/file1tree.json'
-stylish_nested2 = 'tests/fixtures/file2tree.json'
-stylish_nested_result = open('tests/fixtures/correct_result_tree.txt', 'r')
+def get_path(file):
+    return os.path.join('tests', 'fixtures', file)
 
 
-def test_gendiff_flat_json():
-    assert generate_diff(fl1, fl2) == read_result1.read()
+@pytest.mark.parametrize(
+    "test_input1,test_input2, formater,  expected",
+    [
+        pytest.param(
+            'file1.json',
+            'file2.json',
+            'stylish',
+            'correct_result.txt',
+        ),
+        pytest.param(
+            'file1.yml',
+            'file2.yml',
+            'stylish',
+            'correct_result.txt',
+        ),
+        pytest.param(
+            'file1tree.json',
+            'file2tree.json',
+            'stylish',
+            'correct_result_tree.txt',
+        ),
+        pytest.param(
+            'file1tree.yml',
+            'file2tree.yml',
+            'stylish',
+            'correct_result_tree.txt',
+        ),
+    ],
+)
 
 
-def test_gendiff_flat_yaml():
-    assert generate_diff(fl1_yaml, fl2_yaml) == yaml_result.read()
-
-
-def test_stylish_nested():
-    assert generate_diff(stylish_nested1, stylish_nested2) == stylish_nested_result.read()
+def test_generare_diff(test_input1, test_input2, formater, expected):
+    expected_path = get_path(expected)
+    with open(expected_path, 'r') as file:
+        result_data = file.read()
+        test_path1 = get_path(test_input1)
+        test_path2 = get_path(test_input2)
+        assert generate_diff(test_path1, test_path2, formater) == result_data
