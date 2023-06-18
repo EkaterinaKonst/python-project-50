@@ -94,5 +94,4 @@ def generate_diff(file1, file2, formatter='stylish'):
     file1 = file_opener(file1)
     file2 = file_opener(file2)
     diff = create_diff(file1, file2)
-    if formatter == 'stylish':
-        return stylish(diff)
+    return stylish(diff)

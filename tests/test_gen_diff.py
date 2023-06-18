@@ -10,7 +10,7 @@ def get_path(file):
 
 
 @pytest.mark.parametrize(
-    "test_input1,test_input2, formater,  expected",
+    "test_input1,test_input2, formatter, expected",
     [
         pytest.param(
             'file1.json',
@@ -38,12 +38,10 @@ def get_path(file):
         ),
     ],
 )
-
-
-def test_generare_diff(test_input1, test_input2, formater, expected):
+def test_generare_diff(test_input1, test_input2, formatter, expected):
     expected_path = get_path(expected)
     with open(expected_path, 'r') as file:
         result_data = file.read()
         test_path1 = get_path(test_input1)
         test_path2 = get_path(test_input2)
-        assert generate_diff(test_path1, test_path2, formater) == result_data
+        assert generate_diff(test_path1, test_path2, formatter) == result_data
