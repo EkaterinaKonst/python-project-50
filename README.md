@@ -45,6 +45,12 @@ optional arguments:
     make build
     make package-install
 
+[![asciicast](https://asciinema.org/a/C246BEASVsR7ivLi32ibVFc0J.svg)](https://asciinema.org/a/C246BEASVsR7ivLi32ibVFc0J)
 
-[![asciicast](https://asciinema.org/a/C246BEASVsR7ivLi32ibVFc0J)](https://asciinema.org/a/C246BEASVsR7ivLi32ibVFc0J)
+[![asciicast](https://asciinema.org/a/zNSQFIWap7k68P2N5DRTdSNnV.svg)](https://asciinema.org/a/zNSQFIWap7k68P2N5DRTdSNnV)
 
+[![asciicast](https://asciinema.org/a/BcHDH0D3alz9cmSNInSqhanoP.svg)](https://asciinema.org/a/BcHDH0D3alz9cmSNInSqhanoP)
+
+[![asciicast](https://asciinema.org/a/BUzu84BCpZpmzNbO0HDg4iF1M.svg)](https://asciinema.org/a/BUzu84BCpZpmzNbO0HDg4iF1M)
+
+[![asciicast](https://asciinema.org/a/80HDTbWB8DJYhsQ7muhlGh7Y4.svg)](https://asciinema.org/a/80HDTbWB8DJYhsQ7muhlGh7Y4)
