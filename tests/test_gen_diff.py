@@ -36,6 +36,24 @@ def get_path(file):
             'stylish',
             'correct_result_tree.rtf',
         ),
+        pytest.param(
+            'file1tree.json',
+            'file2tree.json',
+            'json',
+            'correct_json_tree_result.txt',
+        ),
+        pytest.param(
+            'file1tree.json',
+            'file2tree.json',
+            'plain',
+            'correct_plain_tree_result.txt',
+        ),
+        pytest.param(
+            'file1.json',
+            'file2.json',
+            'plain',
+            'correct_plain_flat_result.txt',
+        ),
     ],
 )
 def test_generare_diff(test_input1, test_input2, formatter, expected):
