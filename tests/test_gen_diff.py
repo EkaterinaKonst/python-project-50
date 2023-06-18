@@ -28,13 +28,13 @@ def get_path(file):
             'file1tree.json',
             'file2tree.json',
             'stylish',
-            'correct_result_tree.txt',
+            'correct_result_tree.rtf',
         ),
         pytest.param(
             'file1tree.yml',
             'file2tree.yml',
             'stylish',
-            'correct_result_tree.txt',
+            'correct_result_tree.rtf',
         ),
     ],
 )
