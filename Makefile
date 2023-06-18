@@ -10,9 +10,6 @@ test-coverage:
 lint:
 	poetry run flake8 gendiff
 
-selfcheck:
-	poetry check
-
 build:
 	poetry build
 
@@ -22,5 +19,5 @@ publish:
 package-install:
 	python3 -m pip install --user dist/*.whl
 
-make-lint:
-	poetry run flake8 brain_games
+package-reinstall:
+	python3 -m pip install --user dist/*.whl --force-reinstall
