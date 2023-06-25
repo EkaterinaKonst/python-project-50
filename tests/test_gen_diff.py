@@ -1,6 +1,6 @@
-from gendiff.diff import generate_diff
 import pytest
 import os
+from gendiff.diff import generate_diff
 
 
 def get_path(file):
