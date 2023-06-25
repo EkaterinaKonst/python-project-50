@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from gendiff.diff import generate_diff
 import pytest
 import os
