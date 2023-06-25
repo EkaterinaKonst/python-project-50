@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from gendiff.main import generate_diff
+from gendiff.diff import generate_diff
 import pytest
 import os
 
