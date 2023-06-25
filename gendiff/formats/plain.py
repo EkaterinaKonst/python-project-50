@@ -1,4 +1,4 @@
-def plain(diff):
+def get_plain_format(diff):
     diff.sort(key=lambda x: x['name'])
     result = build_plain(diff)
     return '\n'.join(result)

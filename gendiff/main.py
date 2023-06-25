@@ -1,18 +1,7 @@
-import json
-import yaml
 from gendiff.formats.set_formatter import set_formatter
+from gendiff.parser import get_data
 
 
-def file_opener(file):
-    if file.endswith('.json'):
-        return json.load(open(file))
-    elif file.endswith('.yaml') or file.endswith('.yml'):
-        return yaml.safe_load(open(file, 'r'))
-    else:
-        raise ValueError('Invalid format')
-
-
-# flake8: noqa: C901
 def create_diff(dict1, dict2):
     result = []
     keys = sorted(dict1.keys() | dict2.keys())
@@ -41,7 +30,7 @@ def create_diff(dict1, dict2):
 
 
 def generate_diff(file1, file2, formatter='stylish'):
-    file1 = file_opener(file1)
-    file2 = file_opener(file2)
+    file1 = get_data(file1)
+    file2 = get_data(file2)
     diff = create_diff(file1, file2)
     return set_formatter(diff, formatter)

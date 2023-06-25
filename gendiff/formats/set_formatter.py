@@ -1,12 +1,12 @@
-from gendiff.formats.json import _json
-from gendiff.formats.plain import plain
-from gendiff.formats.stylish import stylish
+from gendiff.formats.json import get_json_format
+from gendiff.formats.plain import get_plain_format
+from gendiff.formats.stylish import get_stylish_format
 
 
 def set_formatter(diff_list, format):
     if format == 'stylish':
-        return stylish(diff_list)
+        return get_stylish_format(diff_list)
     elif format == 'json':
-        return _json(diff_list)
+        return get_json_format(diff_list)
     elif format == 'plain':
-        return plain(diff_list)
+        return get_plain_format(diff_list)

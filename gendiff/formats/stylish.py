@@ -16,7 +16,7 @@ def get_string(data, indent):
 
 
 # flake8: noqa: C901
-def stylish(diff_list, level=0):
+def get_stylish_format(diff_list, level=0):
     result = '{\n'
     indent = '  '
 
@@ -27,7 +27,7 @@ def stylish(diff_list, level=0):
 
     for node in diff_list:
         if node['status'] == 'nested':
-            data = stylish(node['children'], level + 1)
+            data = get_stylish_format(node['children'], level + 1)
             result += f"{indent}  {node['name']}: {data}\n"
         elif node['status'] == 'not changed':
             data = get_string(node['data'], indent)

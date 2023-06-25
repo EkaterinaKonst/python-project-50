@@ -1,5 +1,5 @@
 import json
 
 
-def _json(diff_list):
+def get_json_format(diff_list):
     return json.dumps(diff_list, indent=4)
