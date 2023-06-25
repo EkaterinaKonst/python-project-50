@@ -56,7 +56,7 @@ def get_path(file):
         ),
     ],
 )
-def test_generare_diff(test_input1, test_input2, formatter, expected):
+def test_generate_diff(test_input1, test_input2, formatter, expected):
     expected_path = get_path(expected)
     with open(expected_path, 'r') as file:
         result_data = file.read()
